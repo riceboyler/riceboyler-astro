@@ -10,5 +10,16 @@
   },
   "dependencies": {
     "astro": "^5.4.3"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "^0.53.1"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ],
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
