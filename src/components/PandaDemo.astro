@@ -1,0 +1,71 @@
+---
+import { css } from '../../styled-system/css';
+import { stack, center } from '../../styled-system/patterns';
+import Card from './Card.astro';
+---
+
+<div class={center({ minH: '50vh' })}>
+  <Card headerText='Typography & Dark Theme Showcase'>
+    <p>
+      This card demonstrates our beautiful new typography system with <strong
+        >Zilla Slab</strong
+      > for body text and <strong>Zen Kaku Gothic New</strong> for headings, alongside
+      the stunning navy blue and indigo dark theme.
+    </p>
+    <p
+      class={css({
+        color: 'text.muted',
+        fontSize: 'sm',
+        fontFamily: 'zilla',
+        fontStyle: 'italic',
+        mb: 4
+      })}
+    >
+      "Great typography is invisible. Good typography is visible. Bad typography
+      is everywhere." — Craig Ward
+    </p>
+    <div class={stack({ direction: 'row', gap: 4, mt: 4 })}>
+      <button
+        class={css({
+          bg: 'indigo.600',
+          color: 'text.primary',
+          px: 4,
+          py: 2,
+          borderRadius: 'md',
+          fontWeight: 'medium',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+          _hover: {
+            bg: 'indigo.500',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.4)',
+            transform: 'translateY(-1px)'
+          },
+          cursor: 'pointer',
+          border: 'none',
+          transition: 'all 0.2s'
+        })}
+      >
+        Primary Button
+      </button>
+      <button
+        class={css({
+          bg: 'transparent',
+          color: 'indigo.400',
+          px: 4,
+          py: 2,
+          borderRadius: 'md',
+          fontWeight: 'medium',
+          border: '1px solid token(colors.indigo.500)',
+          _hover: {
+            bg: 'indigo.950',
+            borderColor: 'indigo.400',
+            color: 'indigo.300'
+          },
+          cursor: 'pointer',
+          transition: 'all 0.2s'
+        })}
+      >
+        Secondary Button
+      </button>
+    </div>
+  </Card>
+</div>

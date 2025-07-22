@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { css } from '../../styled-system/css';
 
 type Props = HTMLAttributes<'a'>;
 
@@ -7,18 +8,33 @@ const { href, class: className, ...props } = Astro.props;
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
 const subpath = pathname.match(/[^\/]+/g);
 const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+
+const linkStyle = css({
+  display: 'inline-block',
+  textDecoration: 'none',
+  padding: '1em 0.5em',
+  color: 'text.primary',
+  borderBottom: '4px solid transparent',
+  transition: 'all 0.2s',
+  fontSize: '2xl',
+  fontFamily: 'zen',
+  _hover: {
+    color: 'indigo.400',
+    borderBottomColor: 'indigo.400'
+  }
+});
+
+const activeStyle = css({
+  fontWeight: 'bold',
+  borderBottomColor: 'indigo.500',
+  color: 'indigo.300'
+});
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
+<a
+  href={href}
+  class:list={[linkStyle, isActive && activeStyle, className]}
+  {...props}
+>
+  <slot />
 </a>
-<style>
-	a {
-		display: inline-block;
-		text-decoration: none;
-	}
-	a.active {
-		font-weight: bolder;
-		text-decoration: underline;
-	}
-</style>

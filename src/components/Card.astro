@@ -1,0 +1,51 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { css } from 'styled-system/css';
+import { center } from 'styled-system/patterns';
+
+type Props = HTMLAttributes<'div'> & {
+  headerText?: string;
+};
+
+const { class: className, headerText, ...props } = Astro.props;
+
+const cardStyle = css({
+  bg: 'background.secondary',
+  borderRadius: 'lg',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4)',
+  p: 6,
+  maxW: '6xl',
+  border: '1px solid token(colors.border.primary)',
+  backdropFilter: 'blur(10px)',
+  _hover: {
+    boxShadow: '0 8px 12px rgba(0, 0, 0, 0.4), 0 16px 32px rgba(0, 0, 0, 0.5)',
+    transform: 'translateY(-2px)',
+    transition: 'all 0.2s',
+    borderColor: 'indigo.500'
+  }
+});
+
+const titleStyle = css({
+  fontSize: '2xl',
+  fontWeight: 'bold',
+  fontFamily: 'zen',
+  color: 'text.primary',
+  mb: 4,
+  textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+});
+
+const textStyle = css({
+  color: 'text.secondary',
+  lineHeight: 'relaxed',
+  fontFamily: 'zilla'
+});
+---
+
+<div class={center()}>
+  <div class={cardStyle}>
+    <h3 class={titleStyle}>{headerText}</h3>
+    <p class={textStyle}>
+      <slot />
+    </p>
+  </div>
+</div>

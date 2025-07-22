@@ -5,82 +5,112 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
+import { css } from '../../styled-system/css';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+<html lang='en'>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
+  <body>
+    <Header />
+    <main
+      class={css({
+        width: 'calc(100% - 2em)',
+        maxWidth: '100%',
+        margin: 0
+      })}
+    >
+      <article>
+        <div
+          class={css({
+            width: '100%'
+          })}
+        >
+          {
+            heroImage && (
+              <Image
+                width={1020}
+                height={510}
+                src={heroImage}
+                alt=''
+                class={css({
+                  display: 'block',
+                  margin: '0 auto',
+                  borderRadius: '12px',
+                  border: '1px solid token(colors.border.primary)',
+                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)'
+                })}
+              />
+            )
+          }
+        </div>
+        <div
+          class={css({
+            width: '720px',
+            maxWidth: 'calc(100% - 2em)',
+            margin: 'auto',
+            padding: '1em',
+            color: 'text.primary',
+            fontFamily: 'zilla'
+          })}
+        >
+          <div
+            class={css({
+              marginBottom: '1em',
+              padding: '1em 0',
+              textAlign: 'center',
+              lineHeight: 1
+            })}
+          >
+            <div
+              class={css({
+                marginBottom: '0.5em',
+                color: 'text.muted'
+              })}
+            >
+              <FormattedDate date={pubDate} />
+              {
+                updatedDate && (
+                  <div
+                    class={css({
+                      fontStyle: 'italic'
+                    })}
+                  >
+                    Last updated on <FormattedDate date={updatedDate} />
+                  </div>
+                )
+              }
+            </div>
+            <h1
+              class={css({
+                margin: '0 0 0.5em 0',
+                background:
+                  'linear-gradient(135deg, token(colors.indigo.400), token(colors.navy.300))',
+                backgroundClip: 'text',
+                color: 'transparent',
+                textShadow: 'none',
+                fontFamily: 'zen'
+              })}
+            >
+              {title}
+            </h1>
+            <hr
+              class={css({
+                borderTop: '1px solid token(colors.border.primary)',
+                margin: '1em 0'
+              })}
+            />
+          </div>
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
 </html>
