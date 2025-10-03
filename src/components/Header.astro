@@ -65,7 +65,7 @@ import { hstack } from 'styled-system/patterns/hstack.mjs';
             backgroundClip: 'text',
             color: 'transparent',
             fontWeight: '700',
-            fontSize: '6xl',
+            fontSize: ['2xl', '6xl'],
             fontFamily: 'zen',
             letterSpacing: 'tighter'
           })}
@@ -73,11 +73,34 @@ import { hstack } from 'styled-system/patterns/hstack.mjs';
         </a>
       </h3>
     </div>
-    <div class={hstack({ gap: 2 })}>
+    <div class={hstack({ gap: 2, display: ['none', 'flex'] })}>
       <HeaderLink href='/'>Home</HeaderLink>
       <HeaderLink href='/blog'>Blog</HeaderLink>
       <HeaderLink href='/about'>About</HeaderLink>
     </div>
+    <button
+      class={css({
+        display: ['flex', 'none'],
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 1,
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        padding: 2
+      })}
+      aria-label='Menu Button'
+      onClick={() => {
+        const navLinks = document.getElementById('nav-links');
+        if (navLinks) {
+          if (navLinks.style.display === 'flex') {
+            navLinks.style.display = 'none';
+          } else {
+            navLinks.style.display = 'flex';
+          }
+        }
+      }}></button>
     <div
       class={css({
         display: ['flex', 'none'],
